@@ -9,7 +9,7 @@ CMD ["php", "public/index.php"]
 
 FROM base as dev
 
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+# RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 FROM base as prod
 

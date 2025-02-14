@@ -6,13 +6,13 @@ services:
         volumes:
             - ./:/app
         environment:
-            DATABASE_URL: "postgresql://postgres:root@db:5432/demo?serverVersion=16&charset=utf8"
+            DATABASE_URL: "postgresql://postgres:root@database:5432/demo?serverVersion=16&charset=utf8"
             APP_ENV: dev
             APP_RUNTIME: "Runtime\\Swoole\\Runtime"
             SWOOLE_HOST: "0.0.0.0"
             SWOOLE_PORT: 9501
         depends_on:
-            - db
+            - database
 
     fpm:
         build:
@@ -23,7 +23,7 @@ services:
             - ./_docker/fpm/fpm.ini:/usr/local/etc/php-fpm.d/zz-app.conf
             - ./_docker/fpm/php.ini:/usr/local/etc/php/conf.d/prod.ini
         environment:
-            DATABASE_URL: "postgresql://postgres:root@db:5432/demo?serverVersion=16&charset=utf8"
+            DATABASE_URL: "postgresql://postgres:root@database:5432/demo?serverVersion=16&charset=utf8"
             APP_ENV: dev
 
     web:
@@ -36,14 +36,27 @@ services:
         depends_on:
             - app
 
-    db:
-        image: postgres:16-alpine
+    ###> doctrine/doctrine-bundle ###
+    database:
+        image: postgres:${POSTGRES_VERSION:-16}-alpine
         environment:
-            POSTGRES_DB: demo
-            POSTGRES_PASSWORD: root
-            POSTGRES_USER: postgres
+            POSTGRES_DB: ${POSTGRES_DB:-demo}
+            # You should definitely change the password in production
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
+            POSTGRES_USER: ${POSTGRES_USER:-postgres}
         volumes:
             - database_data:/var/lib/postgresql/data:rw
+
+    ###< doctrine/doctrine-bundle ###
+
+    # db:
+    #     image: postgres:16-alpine
+    #     environment:
+    #         POSTGRES_DB: demo
+    #         POSTGRES_PASSWORD: root
+    #         POSTGRES_USER: postgres
+    #     volumes:
+    #         - database_data:/var/lib/postgresql/data:rw
 
     migrations:
         <<: *app_service
@@ -67,5 +80,8 @@ services:
             - fpm
             - app
         restart: no
+
 volumes:
+    ###> doctrine/doctrine-bundle ###
     database_data:
+###< doctrine/doctrine-bundle ###
