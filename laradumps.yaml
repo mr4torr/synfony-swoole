@@ -1,0 +1,9 @@
+app:
+    primary_host: 127.0.0.1
+    secondary_host: host.docker.internal
+    port: 9191
+    workdir: /app
+config:
+    sleep: 0
+    color_in_screen: false
+    docker: false

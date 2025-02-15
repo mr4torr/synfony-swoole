@@ -1,0 +1,17 @@
+{
+    "name": "symfony-swoole/demo-2",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Demo2\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Demo2\\Tests\\": "tests/"
+        }
+    },
+    "extra": {},
+    "minimum-stability": "dev"
+}

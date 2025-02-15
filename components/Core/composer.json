@@ -1,0 +1,17 @@
+{
+    "name": "symfony-swoole/core",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Core\\Tests\\": "tests/"
+        }
+    },
+    "extra": {},
+    "minimum-stability": "dev"
+}

@@ -13,6 +13,8 @@ services:
             SWOOLE_PORT: 9501
         depends_on:
             - database
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     fpm:
         build:
@@ -25,6 +27,9 @@ services:
         environment:
             DATABASE_URL: "postgresql://postgres:root@database:5432/demo?serverVersion=16&charset=utf8"
             APP_ENV: dev
+        # Adicionado para que o laradump funcione
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
 
     web:
         image: nginx:1.25-alpine

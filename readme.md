@@ -91,3 +91,36 @@ php bin/console doctrine:fixtures:load
 
 * To install the swoole I used [this package](https://github.com/php-runtime/swoole)
 
+
+## Instalação do laradump
+
+Install the [app](https://laradumps.dev/get-started/installation.html#desktop-app)
+
+Install package in dev mode
+
+```sh
+composer require laradumps/laradumps-core --dev ^2.0 -W
+```
+
+In the container you want to enable, add to docker-compose.yaml:
+
+```yaml
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+```
+
+Create `laradumps.yaml` file in the project root
+
+```yaml
+app:
+    primary_host: 127.0.0.1
+    secondary_host: host.docker.internal
+    port: 9191
+    workdir: /app
+config:
+    sleep: 0
+    color_in_screen: false
+    docker: false
+
+```
+

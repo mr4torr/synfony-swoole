@@ -17,6 +17,7 @@ COPY ./bin /app/bin
 COPY ./config /app/config
 COPY ./migrations /app/migrations
 COPY ./public /app/public
+COPY ./components /app/components
 COPY ./src /app/src
 COPY composer.* /app
 
